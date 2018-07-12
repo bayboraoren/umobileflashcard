@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {View} from 'react-native'
-import {FormInput, FormLabel, FormValidationMessage, Text} from "react-native-elements";
+import {Button, FormInput, FormLabel, FormValidationMessage, Text} from "react-native-elements";
+import {black, purple} from "../../utils/colors";
 
 
 export default class NewDeckView extends Component {
@@ -13,7 +14,10 @@ export default class NewDeckView extends Component {
                 </Text>
 
                 <FormInput placeholder={'Deck Title'}/>
-                <FormValidationMessage></FormValidationMessage>
+
+                <Button backgroundColor={purple}
+                        onPress={() => alert('hello')}
+                    title='Submit' />
 
             </View>
         )
