@@ -1,9 +1,9 @@
 import React, {Component} from 'react'
-import {ScrollView, Text} from 'react-native'
+import {ScrollView} from 'react-native'
 import {connect} from "react-redux";
 import {getAllDeck} from "../../utils/api";
 import {setDeckListAction} from "./deckListAction";
-import {Card, List, ListItem} from "react-native-elements";
+import DeckView from "./DeckView";
 
 
 class DeckListView extends Component {
@@ -24,11 +24,7 @@ class DeckListView extends Component {
         return (
             <ScrollView>
                 {Object.keys(deckList).map((deckId) => (
-                    <Card title={deckList[deckId].name.toUpperCase()}>
-                        <Text>
-                            {deckList[deckId].cards.length} cards
-                        </Text>
-                    </Card>
+                    <DeckView deck={deckList[deckId]}/>
                 ))}
             </ScrollView>
         )
