@@ -1,17 +1,45 @@
 import React, {Component} from 'react'
-import {View, Text} from 'react-native'
+import {ScrollView, Text} from 'react-native'
+import {connect} from "react-redux";
+import {getAllDeck} from "../../utils/api";
+import {setDeckListAction} from "./deckListAction";
+import {Card, List, ListItem} from "react-native-elements";
 
 
-export default class DeckListView extends Component {
+class DeckListView extends Component {
+
+    componentDidMount() {
+        const {dispatch} = this.props
+
+        getAllDeck()
+            .then((decks) => dispatch(setDeckListAction(decks)))
+
+    }
+
 
     render() {
+
+        const {deckList} = this.props
+
         return (
-            <View style={{flex: 1}}>
-                <Text>
-                    DECK LIST VIEW
-                </Text>
-            </View>
+            <ScrollView>
+                {Object.keys(deckList).map((deckId) => (
+                    <Card title={deckList[deckId].name.toUpperCase()}>
+                        <Text>
+                            {deckList[deckId].cards.length} cards
+                        </Text>
+                    </Card>
+                ))}
+            </ScrollView>
         )
     }
 
 }
+
+function mapStateToProps({deckList}) {
+    return {
+        deckList
+    }
+}
+
+export default connect(mapStateToProps)(DeckListView)

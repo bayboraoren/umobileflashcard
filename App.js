@@ -1,28 +1,35 @@
 import React from 'react';
-import {StatusBar, StyleSheet, Text, View} from 'react-native';
-import {Avatar, Icon} from "react-native-elements";
+import {StatusBar, StyleSheet, View} from 'react-native';
+import {Icon} from "react-native-elements";
 import {createBottomTabNavigator} from "react-navigation";
 import NewDeckView from "./components/newdeck/NewDeckView";
 import DeckListView from "./components/decklist/DeckListView";
-import { Constants } from 'expo'
-import { purple} from "./utils/colors"
+import {Constants} from 'expo'
+import {purple} from "./utils/colors"
+import './ReactotronConfig'
+import {Provider} from "react-redux";
+import {createStore} from "redux";
+import reducers from './app/AppReducers'
+import middleware from './middleware'
 
 
 export default class App extends React.Component {
     render() {
         return (
-            <View style={{flex: 1}}>
-                <UStatusBar backgroundColor={purple} barStyle="light-content" />
-                <Text>HELLO4</Text>
-                <Tabs/>
-            </View>
+            <Provider store={createStore(reducers,middleware)}>
+                <View style={{flex: 1}}>
+                    <UStatusBar backgroundColor={purple} barStyle="light-content"/>
+                    <Tabs/>
+                </View>
+            </Provider>
         );
     }
 }
 
-function UStatusBar ({backgroundColor, ...props}) {
+function UStatusBar({backgroundColor, ...props}) {
+
     return (
-        <View style={{ backgroundColor, height: Constants.statusBarHeight }}>
+        <View style={{backgroundColor, height: Constants.statusBarHeight}}>
             <StatusBar translucent backgroundColor={backgroundColor} {...props} />
         </View>
     )
@@ -34,7 +41,7 @@ const Tabs = createBottomTabNavigator({
         navigationOptions: {
             tabBarLabel: 'DECK LIST',
             tabBarIcon: () => <Icon
-                name='pencil'
+                name='list'
                 type='font-awesome'
                 color={purple}/>
         },
@@ -44,7 +51,7 @@ const Tabs = createBottomTabNavigator({
         navigationOptions: {
             tabBarLabel: 'NEW DECK',
             tabBarIcon: () => <Icon
-                name='list'
+                name='pencil'
                 type='font-awesome'
                 color={purple}/>
         },

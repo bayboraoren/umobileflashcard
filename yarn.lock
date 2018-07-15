@@ -4758,6 +4758,10 @@ minizlib@^1.1.0:
   dependencies:
     minipass "^2.2.1"
 
+mitt@^1.1.2:
+  version "1.1.3"
+  resolved "https://registry.yarnpkg.com/mitt/-/mitt-1.1.3.tgz#528c506238a05dce11cd914a741ea2cc332da9b8"
+
 mixin-deep@^1.2.0:
   version "1.3.1"
   resolved "https://registry.yarnpkg.com/mixin-deep/-/mixin-deep-1.3.1.tgz#a49e7268dce1a0d9698e45326c5626df3543d0fe"
@@ -5837,7 +5841,7 @@ react-proxy@^1.1.7:
     lodash "^4.6.1"
     react-deep-force-update "^1.0.0"
 
-react-redux@^5.0.2:
+react-redux@^5.0.2, react-redux@^5.0.6:
   version "5.0.7"
   resolved "https://registry.yarnpkg.com/react-redux/-/react-redux-5.0.7.tgz#0dc1076d9afb4670f993ffaef44b8f8c1155a4c8"
   dependencies:
@@ -5885,6 +5889,18 @@ react@^16.0.0, react@^16.4.1:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
     prop-types "^15.6.0"
+
+reactotron-core-client@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/reactotron-core-client/-/reactotron-core-client-2.0.0.tgz#0229e7938ed17104b846c50295ae8cb40557e83c"
+
+reactotron-react-native@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/reactotron-react-native/-/reactotron-react-native-2.0.0.tgz#54d1119c6640b7e8c6c7383e482474d4cef11016"
+  dependencies:
+    mitt "^1.1.2"
+    prop-types "^15.5.10"
+    reactotron-core-client "^2.0.0"
 
 read-chunk@^2.0.0:
   version "2.1.0"
@@ -5956,7 +5972,11 @@ redux-logger@^2.7.4:
   dependencies:
     deep-diff "0.3.4"
 
-redux@^3.6.0:
+redux-thunk@^2.2.0:
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/redux-thunk/-/redux-thunk-2.3.0.tgz#51c2c19a185ed5187aaa9a2d08b666d0d6467622"
+
+redux@^3.6.0, redux@^3.7.2:
   version "3.7.2"
   resolved "https://registry.yarnpkg.com/redux/-/redux-3.7.2.tgz#06b73123215901d25d065be342eb026bc1c8537b"
   dependencies:

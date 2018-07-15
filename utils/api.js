@@ -1,8 +1,12 @@
 import {AsyncStorage} from 'react-native'
 
-const DECK_STORAGE_KEY = 'DECK_STORAGE_KEY'
+const DECK_STORAGE_KEY = 'uMobileFlashcard:deck'
+
 
 /**
+
+ ALTERNATIVE STRUCTURE
+ .....
 
  let decks = []
 
@@ -25,7 +29,7 @@ const DECK_STORAGE_KEY = 'DECK_STORAGE_KEY'
  console.log(decks['id'].cards.find((element)=>{return element.id==='id2'}))
 
 
- OTHER
+ STRUCTURE
  .....
 
  let decks = []
@@ -51,21 +55,7 @@ const DECK_STORAGE_KEY = 'DECK_STORAGE_KEY'
 
 
  **/
-export function getDeckList() {
-    return AsyncStorage.getItem(DECK_STORAGE_KEY).then((decks)=>{
-        return decks.map((deck)=> {
-            return {id:deck.id, name: deck.name}
-        })
-    })
-}
 
-export function getDeckById(decks, deckId) {
-    return AsyncStorage.getItem(DECK_STORAGE_KEY).then((decks)=>{
-        return decks.map((deck)=> {
-            return {id:deck.id, name: deck.name}
-        })
-    })
-}
 
 export function getCardListByDeckId(decks,deckId){
 
@@ -75,16 +65,36 @@ export function getCardByCardId(decks, cardId){
 
 }
 
-export function saveDeck(deck){
-
-}
-
 export function saveCard(card){
 
 }
 
-export function fetchCalendarResults() {
-    return AsyncStorage.getItem(CALENDAR_STORAGE_KEY)
+///////// DECK
+
+
+export function saveDeck(deck){
+    return AsyncStorage.mergeItem(DECK_STORAGE_KEY, JSON.stringify({
+        [deck.id]: deck
+    }))
+}
+
+
+export function getDeck(deckId) {
+
+}
+
+export function getAllDeck() {
+    return AsyncStorage.getItem(DECK_STORAGE_KEY).then(objectsToMap)
+}
+
+
+export function objectsToMap (results) {
+    return JSON.parse(results)
+}
+
+
+/*export function fetchCalendarResults() {
+    return AsyncStorage.getItem(DECK_STORAGE_KEY)
         .then(formatCalendarResults)
 }
 
@@ -102,4 +112,4 @@ export function removeEntry(key) {
             delete data[key]
             AsyncStorage.setItem(CALENDAR_STORAGE_KEY, JSON.stringify(data))
         })
-}
+}*/
