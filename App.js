@@ -1,25 +1,27 @@
 import React from 'react';
-import {StatusBar, StyleSheet, View} from 'react-native';
+import {OS, StatusBar, StyleSheet, View} from 'react-native';
 import {Icon} from "react-native-elements";
-import {createBottomTabNavigator} from "react-navigation";
+import {createBottomTabNavigator, createStackNavigator, StackNavigator} from "react-navigation";
 import NewDeckView from "./components/newdeck/NewDeckView";
 import DeckListView from "./components/decklist/DeckListView";
 import {Constants} from 'expo'
-import {purple} from "./utils/colors"
+import {purple, white} from "./utils/colors"
 import './ReactotronConfig'
 import {Provider} from "react-redux";
 import {createStore} from "redux";
 import reducers from './app/AppReducers'
 import middleware from './middleware'
+import IndividualDeckView from "./components/deck/IndividualDeckView";
+import AddCardView from "./components/card/AddCardView";
 
 
 export default class App extends React.Component {
     render() {
         return (
-            <Provider store={createStore(reducers,middleware)}>
+            <Provider store={createStore(reducers, middleware)}>
                 <View style={{flex: 1}}>
                     <UStatusBar backgroundColor={purple} barStyle="light-content"/>
-                    <Tabs/>
+                    <MainNavigator/>
                 </View>
             </Provider>
         );
@@ -36,26 +38,66 @@ function UStatusBar({backgroundColor, ...props}) {
 }
 
 const Tabs = createBottomTabNavigator({
-    NewDeck: {
-        screen: DeckListView,
-        navigationOptions: {
-            tabBarLabel: 'DECK LIST',
-            tabBarIcon: () => <Icon
-                name='list'
-                type='font-awesome'
-                color={purple}/>
+        DeckList: {
+            screen: DeckListView,
+            navigationOptions: {
+                tabBarLabel: 'DECK LIST',
+                tabBarIcon: () => <Icon
+                    name='pencil'
+                    type='font-awesome'
+                    color={purple}/>
+            },
+        },
+
+        NewDeck: {
+            screen: NewDeckView,
+            navigationOptions: {
+                tabBarLabel: 'NEW DECK',
+                tabBarIcon: () => <Icon
+                    name='list'
+                    type='font-awesome'
+                    color={purple}/>
+            },
         },
     },
-    DeckList: {
-        screen: NewDeckView,
+    {
         navigationOptions: {
-            tabBarLabel: 'NEW DECK',
-            tabBarIcon: () => <Icon
-                name='pencil'
-                type='font-awesome'
-                color={purple}/>
+            header: null
         },
+        tabBarOptions: {
+            activeTintColor: OS === 'ios' ? purple : white,
+            style: {
+                height: 56,
+                backgroundColor: OS === 'ios' ? white : purple,
+                shadowColor: 'rgba(0, 0, 0, 0.24)',
+                shadowOffset: {
+                    width: 0,
+                    height: 3
+                },
+                shadowRadius: 6,
+                shadowOpacity: 1
+            }
+        }
+    });
+
+const MainNavigator = createStackNavigator({
+    Home: {
+        screen: Tabs,
+    },
+    IndividualDeckView: {
+        screen: IndividualDeckView,
+        navigationOptions: {
+            headerTintColor: white,
+            headerStyle: {
+                backgroundColor: purple,
+            }
+        }
+    },
+    AddCardView: {
+        screen: AddCardView,
     }
+}, {
+    initialRouteName: 'Home',
 });
 
 

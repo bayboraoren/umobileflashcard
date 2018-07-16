@@ -13,15 +13,6 @@ class DeckView extends Component {
                 <Text style={{marginBottom: 10, textAlign: 'center'}}>
                     {deck.cards !== undefined ? deck.cards.length : '0'} cards
                 </Text>
-                <Button
-                    backgroundColor={purple}
-                    buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0}}
-                    title='VIEW NOW'
-                    onPress={() => this.props.navigation.navigate(
-                        'IndividualDeckView',
-                        { deck: deck}
-                    )}
-                />
             </Card>
         )
     }

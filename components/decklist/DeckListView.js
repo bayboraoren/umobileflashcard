@@ -9,7 +9,7 @@ import DeckView from "./DeckView";
 class DeckListView extends Component {
 
     componentDidMount() {
-        const {dispatch} = this.props
+        const {dispatch} = this.props;
 
         getAllDeck()
             .then((decks) => dispatch(setDeckListAction(decks)))
@@ -19,12 +19,12 @@ class DeckListView extends Component {
 
     render() {
 
-        const {deckList} = this.props
+        const {deckList,navigation} = this.props;
 
         return (
             <ScrollView>
                 {Object.keys(deckList).map((deckId) => (
-                    <DeckView deck={deckList[deckId]}/>
+                    <DeckView key={deckId} deck={deckList[deckId]} navigation={this.props.navigation}/>
                 ))}
             </ScrollView>
         )
