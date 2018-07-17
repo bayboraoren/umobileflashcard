@@ -4,7 +4,6 @@ import {connect} from "react-redux";
 import {black, purple, white} from "../../utils/colors";
 import {Button} from "react-native-elements";
 import DeckViewWithoutButton from "../decklist/DeckViewWithoutButton";
-import {generateID} from "../../utils/helpers";
 
 class IndividualDeckView extends Component {
 
@@ -29,7 +28,11 @@ class IndividualDeckView extends Component {
                         buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0}}
                         title='ADD CARD'
                         onPress={() => this.props.navigation.navigate(
-                            'AddCardView'
+                            'AddCardView',
+                            {
+                                deckId: deck.id,
+                                deckName: deck.name
+                            }
                         )}
                         style={{flex: 1}}
                     />
@@ -50,12 +53,10 @@ class IndividualDeckView extends Component {
 
 }
 
-function mapStateToProps(state, {navigation}) {
-
-    const {deck} = navigation.state.params
+function mapStateToProps({selectedDeck}, {navigation}) {
 
     return {
-        deck,
+        deck:selectedDeck,
     }
 }
 

@@ -26,6 +26,10 @@ class NewDeckView extends Component {
 
         this.props.handleAddNewDeck(deck)
 
+        this.props.navigation.navigate(
+            'DeckList'
+        )
+
     }
 
     handleOnChangeFormInput = (deckTitle) => {

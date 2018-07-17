@@ -10,7 +10,6 @@ export function setDeckListAction (deckList) {
 
 
 handleGetAllDeck = () => {
-
     getAllDeck()
         .then((decks) => {
             Object.keys(decks).map((deckId) => {

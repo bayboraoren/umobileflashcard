@@ -1,9 +1,11 @@
 import React, {Component} from 'react'
 import {ScrollView} from 'react-native'
 import {connect} from "react-redux";
-import {getAllDeck} from "../../utils/api";
+import {clearDeck, getAllDeck} from "../../utils/api";
 import {setDeckListAction} from "./deckListAction";
-import DeckView from "./DeckView";
+import DeckView from "../deck/DeckView";
+import {purple} from "../../utils/colors";
+import {Button} from "react-native-elements";
 
 
 class DeckListView extends Component {
@@ -26,15 +28,22 @@ class DeckListView extends Component {
                 {Object.keys(deckList).map((deckId) => (
                     <DeckView key={deckId} deck={deckList[deckId]} navigation={this.props.navigation}/>
                 ))}
+                <Button
+                    backgroundColor={purple}
+                    buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0}}
+                    title='CLEAR DECK'
+                    onPress={() => clearDeck()}
+                />
             </ScrollView>
         )
     }
 
 }
 
-function mapStateToProps({deckList}) {
+function mapStateToProps({deckList,selectedDeck}) {
     return {
-        deckList
+        deckList,
+        selectedDeck,
     }
 }
 

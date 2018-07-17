@@ -57,22 +57,34 @@ const DECK_STORAGE_KEY = 'uMobileFlashcard:deck'
  **/
 
 
-export function getCardListByDeckId(decks,deckId){
+export function getCardListByDeckId(decks, deckId) {
 
 }
 
-export function getCardByCardId(decks, cardId){
+export function getCardByCardId(decks, cardId) {
 
 }
 
-export function saveCard(card){
-
+export function saveCard(deckId, card) {
+    return AsyncStorage.getItem(DECK_STORAGE_KEY)
+        .then((decks) => {
+            decks = JSON.parse(decks)
+            decks[deckId].cards[card.id] = card;
+            AsyncStorage.setItem(DECK_STORAGE_KEY, JSON.stringify(decks))
+            return decks
+        })
 }
 
 ///////// DECK
 
 
-export function saveDeck(deck){
+export function clearDeck(){
+    return AsyncStorage.clear()
+}
+
+
+export function saveDeck(deck) {
+    deck.cards = {}
     return AsyncStorage.mergeItem(DECK_STORAGE_KEY, JSON.stringify({
         [deck.id]: deck
     }))
@@ -88,7 +100,7 @@ export function getAllDeck() {
 }
 
 
-export function objectsToMap (results) {
+export function objectsToMap(results) {
     return JSON.parse(results)
 }
 
