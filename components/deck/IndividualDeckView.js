@@ -41,8 +41,7 @@ class IndividualDeckView extends Component {
                         buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0}}
                         title='START QUIZ'
                         onPress={() => this.props.navigation.navigate(
-                            'IndividualDeckView',
-                            {deck: deck}
+                            'QuizView',
                         )}
                         style={{flex: 1}}
                     />

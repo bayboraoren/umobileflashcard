@@ -13,6 +13,7 @@ import reducers from './app/AppReducers'
 import middleware from './middleware'
 import IndividualDeckView from "./components/deck/IndividualDeckView";
 import AddCardView from "./components/card/AddCardView";
+import QuizView from "./components/quiz/QuizView";
 
 
 export default class App extends React.Component {
@@ -95,6 +96,9 @@ const MainNavigator = createStackNavigator({
     },
     AddCardView: {
         screen: AddCardView,
+    },
+    QuizView: {
+        screen: QuizView,
     }
 }, {
     initialRouteName: 'Home',
