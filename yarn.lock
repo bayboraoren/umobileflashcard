@@ -5636,12 +5636,6 @@ react-native-elements@^0.19.1:
     opencollective "^1.0.3"
     prop-types "^15.5.8"
 
-react-native-flip-card@^3.5.2:
-  version "3.5.2"
-  resolved "https://registry.yarnpkg.com/react-native-flip-card/-/react-native-flip-card-3.5.2.tgz#6563f4a6d95b999c21e82deec9b2f502175847d6"
-  dependencies:
-    prop-types "^15.5.10"
-
 react-native-gesture-handler@1.0.0-alpha.41:
   version "1.0.0-alpha.41"
   resolved "https://registry.yarnpkg.com/react-native-gesture-handler/-/react-native-gesture-handler-1.0.0-alpha.41.tgz#5667a1977ab148339ec2e7b0a94ad4b959cf09e5"
@@ -5656,6 +5650,12 @@ react-native-maps@0.21.0:
   dependencies:
     babel-plugin-module-resolver "^2.3.0"
     babel-preset-react-native "1.9.0"
+
+react-native-percentage-circle@^1.0.7:
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/react-native-percentage-circle/-/react-native-percentage-circle-1.0.7.tgz#5ae6b1fc0e288266a453a95543a437f5e4e81072"
+  dependencies:
+    react "^16.3.2"
 
 react-native-safe-area-view@^0.7.0:
   version "0.7.0"
@@ -5887,7 +5887,7 @@ react-transform-hmr@^1.0.4:
     global "^4.3.0"
     react-proxy "^1.1.7"
 
-react@^16.0.0, react@^16.4.1:
+react@^16.0.0, react@^16.3.2, react@^16.4.1:
   version "16.4.1"
   resolved "https://registry.yarnpkg.com/react/-/react-16.4.1.tgz#de51ba5764b5dbcd1f9079037b862bd26b82fe32"
   dependencies:

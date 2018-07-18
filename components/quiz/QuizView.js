@@ -1,14 +1,17 @@
 import React, {Component} from 'react'
-import {View, StyleSheet, TouchableOpacity, ScrollView} from "react-native"
+import {Image, View} from "react-native"
 import {connect} from "react-redux"
-import FlipCard from 'react-native-flip-card'
-import {Button, Text} from "react-native-elements";
-import {black, purple, white} from "../../utils/colors";
+import {green, realRed} from "../../utils/colors"
+import {Button, Text} from "react-native-elements"
+import Correct from "../../images/correct.png"
+import PercentageCircle from 'react-native-percentage-circle'
 
 class QuizView extends Component {
 
     state = {
-        flip: false
+        questionIndex: 0,
+        answered: false,
+        correctAnsweredCounter: 0,
     }
 
     static navigationOptions = ({navigation}) => {
@@ -18,80 +21,92 @@ class QuizView extends Component {
     }
 
 
+    handleAnswered = () => {
+        this.setState((prevState) => ({
+                answered: !prevState.answered
+            }
+        ))
+    }
+
+    handleNextQuestion = (isCorrect) => {
+        this.setState((prevState) => ({
+                questionIndex: prevState.questionIndex + 1,
+                answered: false,
+                correctAnsweredCounter: isCorrect === true ? prevState.correctAnsweredCounter + 1 : prevState.correctAnsweredCounter
+            }
+        ))
+    }
+
     render() {
 
         const {deck} = this.props
 
         return (
-            <View style={styles.container}>
+            <View style={{flex: 1}}>
+                {this.state.questionIndex !== Object.keys(deck.cards).length &&
                 <View>
-                    <FlipCard
-                        flip={this.state.flip}
-                        friction={6}
-                        perspective={1000}
-                        flipHorizontal={true}
-                        flipVertical={false}
-                        clickable={true}
-                        style={styles.card}
-                        alignHeight={true}
-                        // alignWidth={true}
-                        onFlipEnd={(isFlipEnd) => {
-                            console.log('isFlipEnd', isFlipEnd)
-                        }}
-                    >
-                        {/* Face Side */}
-                        <View style={styles.face}>
-                            <Text>The Face</Text>
-                        </View>
-                        {/* Back Side */}
-                        <View style={styles.back}>
-                            <Text>T</Text>
-                            <Text>h</Text>
-                            <Text>e</Text>
-                            <Text></Text>
-                            <Text>B</Text>
-                            <Text>a</Text>
-                            <Text>c</Text>
-                            <Text>k</Text>
-                        </View>
-                    </FlipCard>
-                </View>
 
-                <View>
-                    <TouchableOpacity
-                        style={styles.button}
-                        onPress={() => {
-                            this.setState({flip: !this.state.flip})
-                        }}
-                    >
-                        <Text style={styles.buttonText}>Flip</Text>
-                    </TouchableOpacity>
-                </View>
+                    <View>
+                        <Text style={{alignSelf: 'flex-start'}}>
+                            {this.state.questionIndex + 1} / {Object.keys(deck.cards).length}
+                        </Text>
 
-                <Button
-                    backgroundColor={white}
-                    color={black}
-                    buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0}}
-                    title='ADD CARD'
-                    onPress={() => this.props.navigation.navigate(
-                        'AddCardView',
-                        {
-                            deckId: deck.id,
-                            deckName: deck.name
+                        {this.state.answered === false &&
+                        <View>
+
+                            <Text style={{textAlign: 'center'}} h1>
+                                {deck.cards[Object.keys(deck.cards)[this.state.questionIndex]].question}
+                            </Text>
+
+                            <Text onPress={this.handleAnswered} style={{textAlign: 'center', color:realRed}}>
+                                ANSWER
+                            </Text>
+                        </View>
                         }
-                    )}
-                    style={{flex: 1}}
-                />
-                <Button
-                    backgroundColor={purple}
-                    buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0}}
-                    title='START QUIZ'
-                    onPress={() => this.props.navigation.navigate(
-                        'QuizView',
-                    )}
-                    style={{flex: 1}}
-                />
 
+                        {this.state.answered === true &&
+                        <View>
+                            <Text style={{textAlign: 'center'}} h1>
+                                {deck.cards[Object.keys(deck.cards)[this.state.questionIndex]].answer}
+                            </Text>
+                            <Text onPress={this.handleAnswered} style={{textAlign: 'center', color:realRed}}>
+                                QUESTION
+                            </Text>
+                        </View>
+                        }
+                    </View>
+
+                    <View style={{marginTop:50}}>
+                        <Button
+                            backgroundColor={green}
+                            buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0}}
+                            title='CORRECT'
+                            onPress={() => this.handleNextQuestion(true)}
+                        />
+                        <Button
+                            backgroundColor={realRed}
+                            buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0}}
+                            title='INCORRECT'
+                            onPress={() => this.handleNextQuestion(false)}
+                        />
+                    </View>
+                </View>
+                }
+
+                {this.state.questionIndex === Object.keys(deck.cards).length &&
+                <View style={{alignItems: 'center'}}>
+                    <Text h1>{deck.name}</Text>
+                    <PercentageCircle radius={80}
+                                      percent={(100 * this.state.correctAnsweredCounter) / Object.keys(deck.cards).length}
+                                      color={"#009900"}>
+
+                        <Image style={{width: 80, height: 80}} source={Correct}/>
+                        <Text>CORRECT ANSWERS</Text>
+                        <Text>{this.state.correctAnsweredCounter}</Text>
+
+                    </PercentageCircle>
+                </View>
+                }
 
             </View>
         )
@@ -108,58 +123,3 @@ function mapStateToProps({selectedDeck}, {navigation}) {
 
 
 export default connect(mapStateToProps)(QuizView)
-
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#F5FCFF',
-    },
-    welcome: {
-        fontSize: 20,
-        textAlign: 'center',
-        margin: 10,
-        marginTop: 20,
-    },
-    instructions: {
-        textAlign: 'center',
-        color: '#333333',
-        marginBottom: 5,
-    },
-    card: {
-        width: 200,
-    },
-    face: {
-        flex: 1,
-        backgroundColor: '#2ecc71',
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    back: {
-        flex: 1,
-        backgroundColor: '#f1c40f',
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    button: {
-        width: 100,
-        height: 30,
-        marginTop: 30,
-        paddingTop: 6,
-        paddingBottom: 6,
-        borderRadius: 3,
-        borderWidth: 1,
-        backgroundColor: '#007AFF',
-        borderColor: 'transparent',
-    },
-    buttonText: {
-        color: '#fff',
-        textAlign: 'center',
-    },
-    img: {
-        flex: 1,
-        height: 64
-    }
-});
