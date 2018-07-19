@@ -1,11 +1,15 @@
 import React, {Component} from 'react'
-import {View} from 'react-native'
+import {View, Animated, Text} from 'react-native'
 import {connect} from "react-redux";
 import {black, purple, white} from "../../utils/colors";
 import {Button} from "react-native-elements";
 import DeckViewWithoutButton from "../decklist/DeckViewWithoutButton";
 
 class IndividualDeckView extends Component {
+
+    state = {
+        fadeAnim: new Animated.Value(0),
+    }
 
     static navigationOptions = ({navigation}) => {
         return {
@@ -14,12 +18,25 @@ class IndividualDeckView extends Component {
     }
 
 
+    componentDidMount() {
+        Animated.timing(
+            this.state.fadeAnim,
+            {
+                toValue: 1,
+                duration: 2500,
+            }
+        ).start()
+    }
+
     render() {
 
         const {deck} = this.props
+        let { fadeAnim } = this.state;
+
+
 
         return (
-            <View style={{flex: 1, flexDirection: 'column', justifyContent: 'space-between'}}>
+            <Animated.View style={{flex: 1, flexDirection: 'column', justifyContent: 'space-between',...this.props.style, opacity: fadeAnim}}>
                 <DeckViewWithoutButton key={deck.id} deck={deck} navigation={this.props.navigation} style={{flex: 1}}/>
                 <View style={{flex: 1}}>
                     <Button
@@ -46,7 +63,7 @@ class IndividualDeckView extends Component {
                         style={{flex: 1}}
                     />
                 </View>
-            </View>
+            </Animated.View>
         )
     }
 
@@ -55,7 +72,7 @@ class IndividualDeckView extends Component {
 function mapStateToProps({selectedDeck}, {navigation}) {
 
     return {
-        deck:selectedDeck,
+        deck: selectedDeck,
     }
 }
 
