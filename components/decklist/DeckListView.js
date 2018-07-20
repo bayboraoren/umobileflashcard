@@ -21,26 +21,28 @@ class DeckListView extends Component {
 
     render() {
 
-        const {deckList,navigation} = this.props;
+        const {deckList, navigation} = this.props;
 
         return (
             <ScrollView>
                 {Object.keys(deckList).map((deckId) => (
                     <DeckView key={deckId} deck={deckList[deckId]} navigation={this.props.navigation}/>
                 ))}
+                {Object.keys(deckList).length > 0 &&
                 <Button
                     backgroundColor={purple}
                     buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0}}
-                    title='CLEAR DECK'
+                    title='CLEAR DECKS'
                     onPress={() => clearDeck()}
                 />
+                }
             </ScrollView>
         )
     }
 
 }
 
-function mapStateToProps({deckList,selectedDeck}) {
+function mapStateToProps({deckList, selectedDeck}) {
     return {
         deckList,
         selectedDeck,
