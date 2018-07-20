@@ -14,9 +14,16 @@ import middleware from './middleware'
 import IndividualDeckView from "./components/deck/IndividualDeckView";
 import AddCardView from "./components/card/AddCardView";
 import QuizView from "./components/quiz/QuizView";
+import {clearLocalNotification, setLocalNotification} from "./utils/helpers";
 
 
 export default class App extends React.Component {
+
+    componentDidMount() {
+        clearLocalNotification()
+            .then(setLocalNotification)
+    }
+
     render() {
         return (
             <Provider store={createStore(reducers, middleware)}>

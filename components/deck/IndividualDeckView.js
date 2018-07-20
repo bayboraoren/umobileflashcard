@@ -4,6 +4,7 @@ import {connect} from "react-redux";
 import {black, purple, white} from "../../utils/colors";
 import {Button} from "react-native-elements";
 import DeckViewWithoutButton from "../decklist/DeckViewWithoutButton";
+import {clearLocalNotification, setLocalNotification} from "../../utils/helpers";
 
 class IndividualDeckView extends Component {
 
@@ -26,6 +27,18 @@ class IndividualDeckView extends Component {
                 duration: 2500,
             }
         ).start()
+    }
+
+
+    handleStartQuiz = () => {
+
+        clearLocalNotification()
+            .then(setLocalNotification)
+
+        this.props.navigation.navigate(
+            'QuizView',
+        )
+
     }
 
     render() {
@@ -57,9 +70,7 @@ class IndividualDeckView extends Component {
                         backgroundColor={purple}
                         buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0}}
                         title='START QUIZ'
-                        onPress={() => this.props.navigation.navigate(
-                            'QuizView',
-                        )}
+                        onPress={this.handleStartQuiz}
                         style={{flex: 1}}
                     />
                 </View>
