@@ -14,7 +14,7 @@ class IndividualDeckView extends Component {
 
     static navigationOptions = ({navigation}) => {
         return {
-            title: 'Deck View'
+            title: 'DECK VIEW',
         }
     }
 
@@ -44,12 +44,16 @@ class IndividualDeckView extends Component {
     render() {
 
         const {deck} = this.props
-        let { fadeAnim } = this.state;
-
+        let {fadeAnim} = this.state;
 
 
         return (
-            <Animated.View style={{flex: 1, flexDirection: 'column', justifyContent: 'space-between',...this.props.style, opacity: fadeAnim}}>
+            <Animated.View style={{
+                flex: 1,
+                flexDirection: 'column',
+                justifyContent: 'space-between', ...this.props.style,
+                opacity: fadeAnim
+            }}>
                 <DeckViewWithoutButton key={deck.id} deck={deck} navigation={this.props.navigation} style={{flex: 1}}/>
                 <View style={{flex: 1}}>
                     <Button

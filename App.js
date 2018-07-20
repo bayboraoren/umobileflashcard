@@ -5,7 +5,7 @@ import {createBottomTabNavigator, createStackNavigator, StackNavigator} from "re
 import NewDeckView from "./components/newdeck/NewDeckView";
 import DeckListView from "./components/decklist/DeckListView";
 import {Constants} from 'expo'
-import {purple, white} from "./utils/colors"
+import {black, purple, white} from "./utils/colors"
 import './ReactotronConfig'
 import {Provider} from "react-redux";
 import {createStore} from "redux";
@@ -49,22 +49,26 @@ const Tabs = createBottomTabNavigator({
         DeckList: {
             screen: DeckListView,
             navigationOptions: {
+                title: 'Header title',
+                headerTintColor: white,
                 tabBarLabel: 'DECK LIST',
                 tabBarIcon: () => <Icon
                     name='pencil'
                     type='font-awesome'
-                    color={purple}/>
+                    color={white}/>
             },
         },
 
         NewDeck: {
             screen: NewDeckView,
             navigationOptions: {
+                title: 'Header title',
+                headerTintColor: white,
                 tabBarLabel: 'NEW DECK',
                 tabBarIcon: () => <Icon
                     name='list'
                     type='font-awesome'
-                    color={purple}/>
+                    color={white}/>
             },
         },
     },
@@ -76,6 +80,7 @@ const Tabs = createBottomTabNavigator({
             activeTintColor: OS === 'ios' ? purple : white,
             style: {
                 height: 56,
+                color: black,
                 backgroundColor: OS === 'ios' ? white : purple,
                 shadowColor: 'rgba(0, 0, 0, 0.24)',
                 shadowOffset: {
@@ -91,6 +96,14 @@ const Tabs = createBottomTabNavigator({
 const MainNavigator = createStackNavigator({
     Home: {
         screen: Tabs,
+        navigationOptions: {
+            title: 'HOME',
+            headerTintColor: white,
+            headerStyle: {
+                backgroundColor: purple,
+                height: 25
+            }
+        }
     },
     IndividualDeckView: {
         screen: IndividualDeckView,
@@ -98,6 +111,7 @@ const MainNavigator = createStackNavigator({
             headerTintColor: white,
             headerStyle: {
                 backgroundColor: purple,
+                height: 25
             }
         }
     },
@@ -109,14 +123,4 @@ const MainNavigator = createStackNavigator({
     }
 }, {
     initialRouteName: 'Home',
-});
-
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
 });
