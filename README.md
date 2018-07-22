@@ -22,6 +22,7 @@ quizzes on those decks.
 
 ### DECK HOME
 ![alt text][deck-home]
+
 Deck home has got two tabs. 
 Default tab that selected tab is Deck List. 
 So you can see a list of Deck entered
@@ -31,29 +32,35 @@ So you can see a list of Deck entered
 
 ### NEW DECK
 ![alt text][new-deck]
+
 To create new Deck 
 
 ### DECK LIST
 ![alt text][deck-list]
+
 To list deck entered
 
 ### DECK VIEW
 ![alt text][deck-view]
+
 To see deck detail. 
 Also you can add Card to Deck and start a quiz.
 
 ### ADD CARD
 ![alt text][add-card]
+
 To add Card
 
 ### QUIZ VIEW
 ![alt text][quiz-view]
+
 This is quiz view. You will check your 
 knowledge and set you score by selecting 
 *Correct* or *Incorrect*
 
 ### QUIZ RESULT
 ![alt text][quiz-result]
+
 To see your quiz result. You will see it 
 when you quiz finished.
 
